@@ -100,9 +100,9 @@ class Mixer(object):
 		The channel numbers for the input and output channels start with 0.
 		"""
 		if digital:
-			return self.__digital_routes[output_channel][input_channel].getvolume()[0]
+			return self.__digital_routes[output_channel][input_channel].getvolume(0)[0]
 		else:
-			return self.__analog_routes[output_channel][input_channel].getvolume()[0]
+			return self.__analog_routes[output_channel][input_channel].getvolume(1)[0]
 
 	def SetVolume(self, value, output_channel, input_channel, digital=False):
 		"""
@@ -617,7 +617,7 @@ if __name__ == "__main__":
 	card_index = None
 	i = 0
 	for c in alsaaudio.cards():
-		if c == "Ultra":
+		if c == "Ultra" or u'F8R':
 			card_index = i
 		i += 1
 	if card_index is None:
@@ -651,4 +651,3 @@ if __name__ == "__main__":
 			gui.MainLoop()
 		# clean up
 		mixer.Destroy()
-
